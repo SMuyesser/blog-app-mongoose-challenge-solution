@@ -20,9 +20,13 @@ function seedBlogPostData() {
   return BlogPost.insertMany(seedData);
 }
 
+function generateName() {
+  return faker.name.firstName() + " " + faker.name.lastName();
+}
+
 function generateBlogPostData() {
   return {
-    author: faker.name.findName(),
+    author: generateName(),
     title: faker.lorem.sentence(),
     content: faker.lorem.paragraph()
   }
@@ -89,9 +93,8 @@ describe('BlogPosts API resource', function() {
           return BlogPost.findById(resBlogPost.id);
         })
         .then(function(blogpost) {
-
           resBlogPost.id.should.equal(blogpost.id);
-          resBlogPost.author.should.equal(blogpost.author);
+          resBlogPost.author.should.equal(blogpost.authorName);
           resBlogPost.title.should.equal(blogpost.title);
           resBlogPost.content.should.equal(blogpost.content);
         });
@@ -112,6 +115,9 @@ describe('BlogPosts API resource', function() {
           res.body.should.be.a('object');
           res.body.should.include.keys(
             'id', 'author', 'title', 'content');
+          console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+          console.log(res.body);
+          console.log(newBlogPost);
           res.body.author.should.equal(newBlogPost.author);
           res.body.id.should.not.be.null;
           res.body.title.should.equal(newBlogPost.title);
