@@ -115,7 +115,7 @@ describe('BlogPosts API resource', function() {
           res.body.should.be.a('object');
           res.body.should.include.keys(
             'id', 'author', 'title', 'content');
-          console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+          console.log('WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED');
           console.log(res.body);
           console.log(newBlogPost);
           res.body.author.should.equal(newBlogPost.author);
@@ -152,7 +152,6 @@ describe('BlogPosts API resource', function() {
         })
         .then(function(res) {
           res.should.have.status(204);
-
           return BlogPost.findById(updateData.id).exec();
         })
         .then(function(blogpost) {
