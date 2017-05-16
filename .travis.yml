@@ -6,6 +6,6 @@ deploy:
   provider: heroku
   api_key:
     secure: bSVpkS3cQAzz4X5/vpdJsXaRVJ5/0M4W649SnFlc9ZLAZ78NtbzB2tT/f/fYus41/usjiPJeK5VA7VRGvxRneqK9lP2C+MSUTplQgv1tP9BSy8boRblsrU0oLDezEX7NzWBCv38k0cBI/9xOJ0HzzuBNmIc52eUhvmu0hA9578SyV1U00Bypy77d6FW/R4AZEBpo+BKhB6SACrUyRge3RDMxQQ9zX+r2W30KLC40YQTuSv/NageSlq4zWkn0heA51Bs29ZlvRcaukFo5C+iMZoBRVBUWU1RAanKPnwQDKbzu7pmvsdlGZgohMj6hQG7Z5zE7oRV3f8hCUNF+O2i5ULKijU+7aB+sXFBgEsOOGh4KqWY33R2Gkh2NiLZ405ryb2uFyp0ZjiwYegI9rnykwLNrYcqWAuoqWh0o0oGd2h/pkbTSVZz2MW4Kl4pEfSJXjJ1rHX33ScPokRchR7DAWuokBICfyXTfuRw1UPFNwN2LWpkh+RmuLawTGYVLA9h8B9xLkp3Y4KfEWpM+KsNjvPuRgk4GjpDSfS772vpeMIs6wyiU3rttWi51o3QwbBzmfeVG5M7AR3l6SsgyyV5+vYOGVV3vsGKWqtWBXDNUhNXohBAQiDeH5/qrubL9S73i+/AsxoYZ+c9SVYHp3Hl8zKHcX95KZ+SEs+n/uy70riY=
-  app: https://immense-citadel-23207.herokuapp.com/
+  app: immense-citadel-23207
   on:
     repo: SMuyesser/blog-app-mongoose-challenge-solution
