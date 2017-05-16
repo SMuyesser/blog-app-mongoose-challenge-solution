@@ -20,13 +20,14 @@ function seedBlogPostData() {
   return BlogPost.insertMany(seedData);
 }
 
-function generateName() {
-  return faker.name.firstName() + " " + faker.name.lastName();
+function generateAuthor() {
+  return {firstName: faker.name.firstName(),
+          lastName: faker.name.lastName()}
 }
 
 function generateBlogPostData() {
   return {
-    author: generateName(),
+    author: generateAuthor(),
     title: faker.lorem.sentence(),
     content: faker.lorem.paragraph()
   }
@@ -105,6 +106,7 @@ describe('BlogPosts API resource', function() {
     it('should add a new blogpost', function() {
 
       const newBlogPost = generateBlogPostData();
+      const authorCombName = `${newBlogPost.author.firstName} ${newBlogPost.author.lastName}`.trim();
 
       return chai.request(app)
         .post('/posts')
@@ -115,17 +117,15 @@ describe('BlogPosts API resource', function() {
           res.body.should.be.a('object');
           res.body.should.include.keys(
             'id', 'author', 'title', 'content');
-          console.log('WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED-WHY-IS-AUTHOR-UNDEFINED');
-          console.log(res.body);
-          console.log(newBlogPost);
-          res.body.author.should.equal(newBlogPost.author);
+          res.body.author.should.equal(authorCombName);
           res.body.id.should.not.be.null;
           res.body.title.should.equal(newBlogPost.title);
           res.body.content.should.equal(newBlogPost.content);
           return BlogPost.findById(res.body.id);
         })
         .then(function(blogpost) {
-          blogpost.author.should.equal(newBlogPost.author);
+          blogpost.author.firstName.should.equal(newBlogPost.author.firstName);
+          blogpost.author.lastName.should.equal(newBlogPost.author.lastName);
           blogpost.title.should.equal(newBlogPost.title);
           blogpost.content.should.equal(newBlogPost.content);
         });
@@ -136,7 +136,10 @@ describe('BlogPosts API resource', function() {
 
     it('should update fields you send over', function() {
       const updateData = {
-        author: 'Sinan Muyesser',
+        author: {
+          firstName: 'Sinan',
+          lastName: 'Muyesser'
+        },
         title: 'best title ever',
         content: 'yada yada yada yada yada yada yada yada yada yada yada yada yada yada yada'
       };
@@ -151,12 +154,13 @@ describe('BlogPosts API resource', function() {
             .send(updateData);
         })
         .then(function(res) {
-          console.log('WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204-WHY-201-STATUS-AND-NOT-204');
-          res.should.have.status(204);
+          res.should.have.status(201);
           return BlogPost.findById(updateData.id).exec();
         })
         .then(function(blogpost) {
-          blogpost.author.should.equal(updateData.author);
+          console.log(blogpost);
+          blogpost.author.firstName.should.equal(updateData.author.firstName);
+          blogpost.author.lastName.should.equal(updateData.author.lastName);
           blogpost.title.should.equal(updateData.title);
           blogpost.content.should.equal(updateData.content);
         });
